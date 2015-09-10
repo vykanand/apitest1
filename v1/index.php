@@ -95,6 +95,44 @@ $app->post('/register', function() use ($app) {
  * method - POST
  * params - email, password
  */
+$app->post('/greet', function() use ($app) {
+            // check for required params
+            verifyRequiredParams(array('email'));
+
+            // reading post params
+            $em = $app->request()->post('email');
+            $response = array();
+
+            $db = new DbHandler();
+             // get the user by email
+            $user = $db->greetMail($em);
+            // check for correct email and greet
+            if ($user != NULL) {
+               
+                if ($user) {
+                    $response["error"] = false;
+                    $response['name'] = $user['name'];
+                    $response['email'] = $user['email'];
+                } else {
+                    // unknown error occurred
+                    $response['error'] = true;
+                    $response['message'] = "An error occurred. Please try again";
+                }
+            } else {
+                // user credentials are wrong
+                $response['error'] = true;
+                $response['message'] = 'Login failed. Incorrect Email Provided';
+            }
+
+            echoRespnse(200, $response);
+        });
+
+/**
+ * User Login
+ * url - /login
+ * method - POST
+ * params - email, password
+ */
 $app->post('/login', function() use ($app) {
             // check for required params
             verifyRequiredParams(array('email', 'password'));

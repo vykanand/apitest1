@@ -141,6 +141,27 @@ class DbHandler {
             return NULL;
         }
     }
+//** greeting by email
+        public function greetMail($em) {
+        $stmt = $this->conn->prepare("SELECT name, email, api_key, status, created_at FROM users WHERE email = ?");
+        $stmt->bind_param("s", $em);
+        $stmt->execute();
+            // $user = $stmt->get_result()->fetch_assoc();
+            $stmt->bind_result($name, $email, $api_key, $status, $created_at);
+            $stmt->fetch();
+            if($email == $em){
+            $user = array();
+            $user["name"] = $name;
+            $user["email"] = $email;
+            $user["api_key"] = $api_key;
+            $user["status"] = $status;
+            $user["created_at"] = $created_at;
+            $stmt->close();
+            return $user;
+        } else {
+            return NULL;
+        }
+    }
 
     /**
      * Fetching user api key

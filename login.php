@@ -7,11 +7,11 @@
 <body id="body-color">
 <div id="Sign-In">
 <fieldset style="width:30%"><legend>LOG-IN HERE</legend>
-<form method="POST" action="connectapi.php">
-User <br><input type="text" name="user" size="40"><br>
+<form id="Signin" method="POST" >
+Email <br><input type="text" name="user" size="40"><br>
 Password <br><input type="password" name="pass" size="40"><br>
 Pin <br><input type="password" name="pin" size="40"><br>
-<input id="button" type="submit" name="submit">
+
 </form>
 </fieldset>
 </div>
